@@ -1,18 +1,23 @@
 import { Link, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { AppContainer } from './components';
+import { Layout } from './components';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <div style={{ border: '2px solid #00' }}>
+      <Layout>
         <Link to='expenses'>Expenses</Link>
-      </div>
+      </Layout>
     ),
   },
   {
     path: 'expenses',
-    element: <div>Expenses</div>,
+    element: (
+      <Layout>
+        <div>Expenses</div>
+      </Layout>
+    ),
   },
 ]);
 
