@@ -1,30 +1,49 @@
-import { Link, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { AppContainer } from './components';
-import { Layout } from './components';
+import React from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
-const router = createBrowserRouter([
+import { AppContainer, Layout } from './components';
+import { ExpensesPage, HomePage, CalendarPage, SettingsPage } from './pages';
+
+const routes = [
   {
     path: '/',
-    element: (
-      <Layout headerTitle='Home'>
-        <Link to='expenses'>Expenses</Link>
-      </Layout>
-    ),
+    title: 'Home',
   },
   {
-    path: 'expenses',
-    element: (
-      <Layout headerTitle='Expenses'>
-        <div>Expenses</div>
-      </Layout>
-    ),
+    path: '/expenses',
+    title: 'Expenses',
   },
-]);
+  {
+    path: '/calendar',
+    title: 'Calendar',
+  },
+  {
+    path: '/settings',
+    title: 'Settings',
+  },
+];
 
 function App() {
+  const location = useLocation();
+
+  const [headerTitle, setHeaderTitle] = React.useState('Home');
+
+  React.useEffect(() => {
+    setHeaderTitle(
+      routes.find((route) => route.path === location.pathname)?.title || 'Home',
+    );
+  }, [location]);
+
   return (
     <AppContainer>
-      <RouterProvider router={router} />
+      <Routes>
+        <Route path='/' element={<Layout headerTitle={headerTitle} />}>
+          <Route index element={<HomePage />} />
+          <Route path='expenses' element={<ExpensesPage />} />
+          <Route path='calendar' element={<CalendarPage />} />
+          <Route path='settings' element={<SettingsPage />} />
+        </Route>
+      </Routes>
     </AppContainer>
   );
 }

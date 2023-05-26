@@ -49,55 +49,73 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ className }) => {
 
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  const items = [
-    {
-      content: <HomeIcon />,
-      onClickCallback: () => {
-        navigate('/');
+  const items = React.useMemo(
+    () => [
+      {
+        content: <HomeIcon />,
+        onClickCallback: () => {
+          navigate('/');
+        },
+        key: 'home',
+        type: 'icon',
       },
-      key: 'home',
-    },
-    {
-      content: <ExpensesIcon />,
-      onClickCallback: () => {
-        navigate('/expenses');
+      {
+        content: <ExpensesIcon />,
+        onClickCallback: () => {
+          navigate('/expenses');
+        },
+        key: 'expenses',
+        type: 'icon',
       },
-      key: 'expenses',
-    },
-    {
-      content: (
-        <Fab color='primary'>
-          <PlusIcon />
-        </Fab>
-      ),
-      onClickCallback: () => {},
-      key: 'add',
-    },
-    {
-      content: <CalendarIcon />,
-      onClickCallback: () => {},
-      key: 'calendar',
-    },
-    {
-      content: <SettingsIcon />,
-      onClickCallback: () => {},
-      key: 'settings',
-    },
-  ];
+      {
+        content: (
+          <Fab color='primary'>
+            <PlusIcon />
+          </Fab>
+        ),
+        onClickCallback: () => {
+          console.log('add');
+        },
+        key: 'add',
+        type: 'button',
+      },
+      {
+        content: <CalendarIcon />,
+        onClickCallback: () => {
+          navigate('/calendar');
+        },
+        key: 'calendar',
+        type: 'icon',
+      },
+      {
+        content: <SettingsIcon />,
+        onClickCallback: () => {
+          navigate('/settings');
+        },
+        key: 'settings',
+        type: 'icon',
+      },
+    ],
+    [activeIndex, navigate],
+  );
 
   return (
     <div className={clsx(classes.container, className)}>
       {items.map((el, index) => (
         <BottomNavigationItem className={classes.item} key={el.key}>
-          <IconButton
-            onClick={() => {
-              setActiveIndex(index);
-              el.onClickCallback();
-            }}
-            color={index === activeIndex ? 'primary' : 'info'}
-          >
-            {el.content}
-          </IconButton>
+          {el.type === 'icon' ? (
+            <IconButton
+              onClick={() => {
+                setActiveIndex(index);
+                el.onClickCallback();
+              }}
+              color={index === activeIndex ? 'primary' : 'info'}
+            >
+              {el.content}
+            </IconButton>
+          ) : (
+            el.content
+          )}
         </BottomNavigationItem>
       ))}
     </div>

@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ className, title }) => {
 
   return (
     <header className={clsx(classes.container, className)}>
-      <img src={ProfilePicture} alt='Profile picture.' />
+      <img src={ProfilePicture} alt='Profile.' />
       <Typography variant='h1' className={classes.title}>
         {title}
       </Typography>

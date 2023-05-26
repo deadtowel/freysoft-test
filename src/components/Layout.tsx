@@ -1,6 +1,8 @@
+import { Outlet } from 'react-router-dom';
+import { makeStyles } from 'tss-react/mui';
+
 import BottomNavigation from './BottomNavigation';
 import Header from './Header';
-import { makeStyles } from 'tss-react/mui';
 
 const useStyles = makeStyles()(() => ({
   layout: {
@@ -26,17 +28,18 @@ const useStyles = makeStyles()(() => ({
 }));
 
 interface LayoutProps {
-  children: React.ReactNode;
   headerTitle: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, headerTitle }) => {
+const Layout: React.FC<LayoutProps> = ({ headerTitle }) => {
   const { classes } = useStyles();
 
   return (
     <div className={classes.layout}>
       <Header className={classes.header} title={headerTitle} />
-      <main className={classes.main}>{children}</main>
+      <main className={classes.main}>
+        <Outlet />
+      </main>
       <BottomNavigation className={classes.footer} />
     </div>
   );
