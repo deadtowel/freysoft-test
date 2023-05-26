@@ -6,7 +6,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <Layout>
+      <Layout headerTitle='Home'>
         <Link to='expenses'>Expenses</Link>
       </Layout>
     ),
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
   {
     path: 'expenses',
     element: (
-      <Layout>
+      <Layout headerTitle='Expenses'>
         <div>Expenses</div>
       </Layout>
     ),

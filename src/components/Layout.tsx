@@ -27,14 +27,15 @@ const useStyles = makeStyles()(() => ({
 
 interface LayoutProps {
   children: React.ReactNode;
+  headerTitle: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const Layout: React.FC<LayoutProps> = ({ children, headerTitle }) => {
   const { classes } = useStyles();
 
   return (
     <div className={classes.layout}>
-      <Header className={classes.header} />
+      <Header className={classes.header} title={headerTitle} />
       <main className={classes.main}>{children}</main>
       <BottomNavigation className={classes.footer} />
     </div>
