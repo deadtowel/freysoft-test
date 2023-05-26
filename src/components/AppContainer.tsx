@@ -1,42 +1,45 @@
-import { styled } from '@mui/material/styles';
+import { makeStyles } from 'tss-react/mui';
+
+const useStyles = makeStyles()((theme) => ({
+  wrapper: {
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+  },
+  container: {
+    width: '100%',
+    height: '100vh',
+    overflowX: 'hidden',
+    [theme.breakpoints.up('sm')]: {
+      width: 414,
+      height: 736,
+    },
+  },
+}));
 
 interface WrapperProps {
   children: React.ReactNode;
-  className?: string;
 }
 
-const Wrapper: React.FC<WrapperProps> = ({ children, className }) => {
-  return <div className={className}>{children}</div>;
-};
+const Wrapper: React.FC<WrapperProps> = ({ children }) => {
+  const { classes } = useStyles();
 
-const StyledWrapper = styled(Wrapper)(({ theme }) => ({
-  [theme.breakpoints.up('sm')]: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-})) as typeof Wrapper;
+  return <div className={classes.wrapper}>{children}</div>;
+};
 
 interface ContainerProps {
   children: React.ReactNode;
-  className?: string;
 }
 
-const Container: React.FC<ContainerProps> = ({ children, className }) => {
+const Container: React.FC<ContainerProps> = ({ children }) => {
+  const { classes } = useStyles();
+
   return (
-    <StyledWrapper>
-      <div className={className}>{children}</div>
-    </StyledWrapper>
+    <Wrapper>
+      <div className={classes.container}>{children}</div>
+    </Wrapper>
   );
 };
 
-const StyledContainer = styled(Container)(({ theme }) => ({
-  width: '100%',
-  height: '100vh',
-  overflowX: 'hidden',
-  [theme.breakpoints.up('sm')]: {
-    width: 414,
-    height: 736,
-  },
-})) as typeof Container;
-
-export default StyledContainer;
+export default Container;

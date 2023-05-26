@@ -1,45 +1,44 @@
-import { styled } from '@mui/material/styles';
-
 import BottomNavigation from './BottomNavigation';
 import Header from './Header';
+import { makeStyles } from 'tss-react/mui';
 
-const StyledHeader = styled(Header)(() => ({
-  gridArea: 'header',
-}));
-
-const StyledMain = styled('main')(() => ({
-  gridArea: 'main',
-}));
-
-const StyledBottomNavigation = styled(BottomNavigation)(() => ({
-  gridArea: 'footer',
+const useStyles = makeStyles()(() => ({
+  layout: {
+    height: '100%',
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    gridTemplateRows: 'auto 1fr auto',
+    gridTemplateAreas: `
+    'header'
+    'main'
+    'footer'
+    `,
+  },
+  header: {
+    gridArea: 'header',
+  },
+  main: {
+    gridArea: 'main',
+  },
+  footer: {
+    gridArea: 'footer',
+  },
 }));
 
 interface LayoutProps {
   children: React.ReactNode;
-  className?: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, className }) => {
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { classes } = useStyles();
+
   return (
-    <div className={className}>
-      <StyledHeader />
-      <StyledMain>{children}</StyledMain>
-      <StyledBottomNavigation />
+    <div className={classes.layout}>
+      <Header className={classes.header} />
+      <main className={classes.main}>{children}</main>
+      <BottomNavigation className={classes.footer} />
     </div>
   );
 };
 
-const StyledLayout = styled(Layout)(() => ({
-  height: '100%',
-  display: 'grid',
-  gridTemplateColumns: '1fr',
-  gridTemplateRows: 'auto 1fr auto',
-  gridTemplateAreas: `
-    'header'
-    'main'
-    'footer'
-  `,
-}));
-
-export default StyledLayout;
+export default Layout;
