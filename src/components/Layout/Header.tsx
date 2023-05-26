@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { makeStyles } from 'tss-react/mui';
 import { IconButton, Typography } from '@mui/material';
 
-import { NotificationsIcon } from './Icons';
+import { NotificationsIcon } from '../Icons';
 import ProfilePicture from '../assets/avatar.png';
 
 const useStyles = makeStyles()(() => ({

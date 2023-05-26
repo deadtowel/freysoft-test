@@ -1,2 +1,2 @@
-export { default as AppContainer } from './AppContainer'
-export { default as Layout } from './Layout'
+export { AppContainer } from './AppContainer'
+export { Layout } from './Layout'

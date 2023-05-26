@@ -10,7 +10,7 @@ import {
   HomeIcon,
   PlusIcon,
   SettingsIcon,
-} from './Icons';
+} from '../Icons';
 
 const useStyles = makeStyles()(() => ({
   container: {
